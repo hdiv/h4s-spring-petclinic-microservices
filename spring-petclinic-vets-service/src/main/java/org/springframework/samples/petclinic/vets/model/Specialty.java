@@ -22,6 +22,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hdiv.services.SecureIdentifiable;
+
 /**
  * Models a {@link Vet Vet's} specialty (for example, dentistry).
  *
@@ -29,27 +31,28 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "specialties")
-public class Specialty {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Specialty implements SecureIdentifiable<Integer> {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Column(name = "name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    public Integer getId() {
-        return id;
-    }
+	@Override
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(final Integer id) {
-        this.id = id;
-    }
+	public void setId(final Integer id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+	public void setName(final String name) {
+		this.name = name;
+	}
 }

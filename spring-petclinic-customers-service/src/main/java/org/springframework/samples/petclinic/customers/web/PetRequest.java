@@ -15,26 +15,32 @@
  */
 package org.springframework.samples.petclinic.customers.web;
 
-import lombok.Data;
-
 import java.util.Date;
 
 import javax.validation.constraints.Size;
 
+import org.hdiv.services.SecureIdentifiable;
+import org.hdiv.services.TrustAssertion;
+import org.springframework.samples.petclinic.customers.model.Pet;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
 
 /**
  * @author mszarlinski@bravurasolutions.com on 2016-12-05.
  */
 @Data
-class PetRequest {
-    private int id;
+class PetRequest implements SecureIdentifiable<Integer> {
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date birthDate;
+	@TrustAssertion(idFor = Pet.class)
+	private Integer id;
 
-    @Size(min = 1)
-    private String name;
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date birthDate;
 
-    private int typeId;
+	@Size(min = 1)
+	private String name;
+
+	private int typeId;
 }

@@ -27,6 +27,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import org.hdiv.services.SecureIdentifiable;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
@@ -37,42 +39,43 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "visits")
-public class Visit {
+public class Visit implements SecureIdentifiable<Integer> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Column(name = "visit_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date date = new Date();
+	@Column(name = "visit_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private final Date date = new Date();
 
-    @Size(max = 8192)
-    @Column(name = "description")
-    private String description;
+	@Size(max = 8192)
+	@Column(name = "description")
+	private String description;
 
-    @Column(name = "pet_id")
-    private int petId;
+	@Column(name = "pet_id")
+	private int petId;
 
-    public Integer getId() {
-        return id;
-    }
+	@Override
+	public Integer getId() {
+		return id;
+	}
 
-    public Date getDate() {
-        return date;
-    }
+	public Date getDate() {
+		return date;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public int getPetId() {
-        return petId;
-    }
+	public int getPetId() {
+		return petId;
+	}
 
-    public void setPetId(final int petId) {
-        this.petId = petId;
-    }
+	public void setPetId(final int petId) {
+		this.petId = petId;
+	}
 
 }

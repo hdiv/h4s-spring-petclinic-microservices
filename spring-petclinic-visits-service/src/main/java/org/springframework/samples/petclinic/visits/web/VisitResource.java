@@ -15,16 +15,24 @@
  */
 package org.springframework.samples.petclinic.visits.web;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.hdiv.services.TrustAssertion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.samples.petclinic.visits.model.Visit;
 import org.springframework.samples.petclinic.visits.model.VisitRepository;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Juergen Hoeller
@@ -38,21 +46,23 @@ import java.util.List;
 @Slf4j
 public class VisitResource {
 
-    private final VisitRepository visitRepository;
+	private interface Pet {
 
-    @PostMapping("owners/*/pets/{petId}/visits")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void create(
-        @Valid @RequestBody Visit visit,
-        @PathVariable("petId") int petId) {
+	}
 
-        visit.setPetId(petId);
-        log.info("Saving visit {}", visit);
-        visitRepository.save(visit);
-    }
+	private final VisitRepository visitRepository;
 
-    @GetMapping("owners/*/pets/{petId}/visits")
-    public List<Visit> visits(@PathVariable("petId") int petId) {
-        return visitRepository.findByPetId(petId);
-    }
+	@PostMapping("owners/*/pets/{petId}/visits")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void create(@Valid @RequestBody final Visit visit, @TrustAssertion(idFor = Pet.class) @PathVariable("petId") final int petId) {
+
+		visit.setPetId(petId);
+		log.info("Saving visit {}", visit);
+		visitRepository.save(visit);
+	}
+
+	@GetMapping("owners/*/pets/{petId}/visits")
+	public List<Visit> visits(@PathVariable("petId") final int petId) {
+		return visitRepository.findByPetId(petId);
+	}
 }

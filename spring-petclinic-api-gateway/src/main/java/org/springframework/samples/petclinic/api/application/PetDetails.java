@@ -15,10 +15,10 @@
  */
 package org.springframework.samples.petclinic.api.application;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.Data;
 
 /**
  * @author Maciej Szarlinski
@@ -26,14 +26,14 @@ import java.util.List;
 @Data
 public class PetDetails {
 
-    private final int id;
+	private final String id;
 
-    private final String name;
+	private final String name;
 
-    private final String birthDate;
+	private final String birthDate;
 
-    private final PetType type;
+	private final PetType type;
 
-    private final List<VisitDetails> visits = new ArrayList<>();
+	private final List<VisitDetails> visits = new ArrayList<>();
 
 }

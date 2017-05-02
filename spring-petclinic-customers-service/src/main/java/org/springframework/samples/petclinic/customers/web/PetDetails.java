@@ -15,36 +15,53 @@
  */
 package org.springframework.samples.petclinic.customers.web;
 
-import lombok.Data;
-
 import java.util.Date;
 
+import org.hdiv.services.Mapper;
+import org.hdiv.services.SecureIdentifiable;
+import org.hdiv.services.TrustAssertion;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.customers.model.Pet;
 import org.springframework.samples.petclinic.customers.model.PetType;
+
+import lombok.Data;
 
 /**
  * @author mszarlinski@bravurasolutions.com on 2016-12-05.
  */
 @Data
-class PetDetails {
+class PetDetails implements SecureIdentifiable<Integer>, Mapper<PetRequest> {
 
-    private long id;
+	@TrustAssertion(idFor = Pet.class)
+	private Integer id;
 
-    private String name;
+	private String name;
 
-    private String owner;
+	private String owner;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthDate;
 
-    private PetType type;
+	private PetType type;
 
-    PetDetails(Pet pet) {
-        this.id = pet.getId();
-        this.name = pet.getName();
-        this.owner = pet.getOwner().getFirstName() + " " + pet.getOwner().getLastName();
-        this.birthDate = pet.getBirthDate();
-        this.type = pet.getType();
-    }
+	PetDetails() {
+	}
+
+	PetDetails(final Pet pet) {
+		id = pet.getId();
+		name = pet.getName();
+		owner = pet.getOwner().getFirstName() + " " + pet.getOwner().getLastName();
+		birthDate = pet.getBirthDate();
+		type = pet.getType();
+	}
+
+	@Override
+	public PetRequest map(final Class<PetRequest> arg0) {
+		PetRequest request = new PetRequest();
+		request.setId(id);
+		request.setBirthDate(birthDate);
+		request.setTypeId(type.getId());
+		request.setName(name);
+		return request;
+	}
 }

@@ -23,11 +23,11 @@ import lombok.Data;
 @Data
 public class VisitDetails {
 
-    private final int id;
+	private final String id;
 
-    private final int petId;
+	private final String petId;
 
-    private final String date;
+	private final String date;
 
-    private final String description;
+	private final String description;
 }

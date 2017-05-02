@@ -22,29 +22,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hdiv.services.SecureIdentifiable;
+
 /**
- * @author Juergen Hoeller
- * Can be Cat, Dog, Hamster...
+ * @author Juergen Hoeller Can be Cat, Dog, Hamster...
  */
 @Entity
 @Table(name = "types")
-public class PetType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class PetType implements SecureIdentifiable<Integer> {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Column(name = "name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    public Integer getId() {
-        return id;
-    }
+	@Override
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(final Integer id) {
-        this.id = id;
-    }
+	public void setId(final Integer id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public String getName() {
+		return name;
+	}
 }
