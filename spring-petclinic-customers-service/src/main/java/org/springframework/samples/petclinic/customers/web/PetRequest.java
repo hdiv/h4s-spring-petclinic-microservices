@@ -22,6 +22,7 @@ import javax.validation.constraints.Size;
 import org.hdiv.services.SecureIdentifiable;
 import org.hdiv.services.TrustAssertion;
 import org.springframework.samples.petclinic.customers.model.Pet;
+import org.springframework.samples.petclinic.customers.model.PetType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -42,5 +43,7 @@ class PetRequest implements SecureIdentifiable<Integer> {
 	@Size(min = 1)
 	private String name;
 
+	@TrustAssertion(idFor = PetType.class)
 	private int typeId;
+
 }

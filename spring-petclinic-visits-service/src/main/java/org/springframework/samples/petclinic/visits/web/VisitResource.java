@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hdivsecurity.web.hateoas.util.EntityMapper;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,6 +50,10 @@ public class VisitResource {
 
 	private interface Pet {
 
+	}
+
+	static {
+		EntityMapper.toEntity(Pet.class);
 	}
 
 	private final VisitRepository visitRepository;

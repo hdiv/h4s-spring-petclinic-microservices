@@ -48,7 +48,7 @@ public class Visit implements SecureIdentifiable<Integer> {
 	@Column(name = "visit_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private final Date date = new Date();
+	private Date date = new Date();
 
 	@Size(max = 8192)
 	@Column(name = "description")
@@ -66,8 +66,16 @@ public class Visit implements SecureIdentifiable<Integer> {
 		return date;
 	}
 
+	public void setDate(final Date date) {
+		this.date = date;
+	}
+
 	public String getDescription() {
 		return description;
+	}
+
+	public void setDescription(final String description) {
+		this.description = description;
 	}
 
 	public int getPetId() {
