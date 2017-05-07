@@ -31,8 +31,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hdivsecurity.web.hateoas.util.EntityMapper;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,19 +46,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class VisitResource {
 
-	private interface Pet {
-
-	}
-
-	static {
-		EntityMapper.toEntity(Pet.class);
-	}
-
 	private final VisitRepository visitRepository;
 
 	@PostMapping("owners/*/pets/{petId}/visits")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void create(@Valid @RequestBody final Visit visit, @TrustAssertion(idFor = Pet.class) @PathVariable("petId") final int petId) {
+	public void create(@Valid @RequestBody final Visit visit, @TrustAssertion(plainIdFor = "Pet") @PathVariable("petId") final int petId) {
 
 		visit.setPetId(petId);
 		log.info("Saving visit {}", visit);
