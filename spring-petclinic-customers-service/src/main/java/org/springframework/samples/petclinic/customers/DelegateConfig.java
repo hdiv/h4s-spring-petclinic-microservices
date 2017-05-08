@@ -16,10 +16,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.config.EnableEntityLinks;
 
-import com.hdivsecurity.web.hateoas.config.EnableHdiv4ServicesSecurityConfiguration;
-import com.hdivsecurity.web.hateoas.config.HdivServicesSecurityConfigurerAdapter;
-import com.hdivsecurity.web.hateoas.config.ServicesConfig.IdProtectionType;
-import com.hdivsecurity.web.hateoas.config.ServicesSecurityConfigBuilder;
+import com.hdivsecurity.services.config.EnableHdiv4ServicesSecurityConfiguration;
+import com.hdivsecurity.services.config.HdivServicesSecurityConfigurerAdapter;
+import com.hdivsecurity.services.config.ServicesConfig.IdProtectionType;
+import com.hdivsecurity.services.config.ServicesSecurityConfigBuilder;
 
 @Configuration
 @EnableHdiv4ServicesSecurityConfiguration
